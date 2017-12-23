@@ -48,15 +48,15 @@ reverse_il([H|T], Acc, R):-reverse_il(T, [H|Acc], R).
 transform_il(L, []) :- var(L), !.
 transform_il([H|T], [H|R]) :- transform_il(T, R).
 
-% bst to use
+% bst to usetrace
 tree1(t(6, t(4, t(2, _, _), t(5, _, _)), t(9, t(7, _, _), _))). 
 
 % q.3.4
 
-preorder(T, []) :- var(T), !.
+preorder(T, _) :- var(T), !.
 preorder(t(K,L,R), List):- preorder(L,LL),
 			 preorder(R, LR),
-			append([K|LL], LR, List).
+			append([K|LL], LR, List), !.
 
 % q.3.5
 
@@ -79,7 +79,7 @@ transform_it(T, T):- !.
 
 % p.4.1
 
-flat_il(L, L):- var(L), !.
+flat_il(L, _):- var(L), !.
 flat_il([H|T], [H|R]) :- atomic(H),!, flat_il(T,R).
 flat_il([H|T], R) :- flat_il(H,R1), flat_il(T,R2), append(R1,R2,R), !.
 
